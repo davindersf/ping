@@ -25,6 +25,7 @@ module.exports = {
   ],
 
   scopes: [
+{name: 'authentication-service-service'}, 
     {name: 'ci-cd'},
     {name: 'deps'},
     {name: 'migrations'},
