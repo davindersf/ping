@@ -7,10 +7,9 @@
     "db:migrate": "run-s db:migrate:*",
     "db:migrate-down": "run-s db:migrate-down:*",
     "db:migrate-reset": "run-s db:migrate-reset:*",
-    "db:migrate:authentication-service": "./node_modules/.bin/db-migrate up --config 'authentication-service/database.json' -m 'authentication-service/migrations'",
-    "db:migrate-down:authentication-service": "./node_modules/.bin/db-migrate down --config 'authentication-service/database.json' -m 'authentication-service/migrations'",
-    "db:migrate-reset:authentication-service": "./node_modules/.bin/db-migrate reset --config 'authentication-service/database.json' -m 'authentication-service/migrations'"
-
+    "db:migrate:all-migrations": "./node_modules/.bin/db-migrate up --config 'all-migrations/database.json' -m 'all-migrations/migrations'",
+    "db:migrate-down:all-migrations": "./node_modules/.bin/db-migrate down --config 'all-migrations/database.json' -m 'all-migrations/migrations'",
+    "db:migrate-reset:all-migrations": "./node_modules/.bin/db-migrate reset --config 'all-migrations/database.json' -m 'all-migrations/migrations'"
   },
   "author": "",
   "license": "ISC",

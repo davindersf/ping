@@ -1,0 +1,22 @@
+{
+  "defaultEnv": "master",
+  "master": {
+    "driver": "pg",
+    "host": {
+      "ENV": "MIGRATION_DB_HOST"
+    },
+    "port": {
+      "ENV": "MIGRATION_DB_PORT"
+    },
+    "user": {
+      "ENV": "MIGRATION_DB_USER"
+    },
+    "password": {
+      "ENV": "MIGRATION_DB_PASSWORD"
+    },
+    "database": {
+      "ENV": "MIGRATION_DB_DATABASE"
+    }
+  },
+  "sql-file": true
+}

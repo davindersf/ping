@@ -37,7 +37,7 @@ export class GoogleOauth2SignupProvider implements Provider<GoogleSignUpFn> {
         }),
         this.roleRepo.findOne({
           where: {
-            roleType: 0,
+            roleType: 1,
           },
         }),
         this.authClientRepo.findOne({
