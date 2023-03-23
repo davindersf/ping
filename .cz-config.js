@@ -25,6 +25,7 @@ module.exports = {
   ],
 
   scopes: [
+{name: 'notification-service-service'}, 
 {name: 'chat-service-service'}, 
 {name: 'authentication-service-service'}, 
     {name: 'ci-cd'},
