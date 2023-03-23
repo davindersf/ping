@@ -16,7 +16,7 @@ values
 insert into roles
   (name, permissions, role_type)
 values
-  ('Basic', '{ViewMessage,CreateMessage,UpdateMessage,DeleteMessage}', 1);
+  ('Basic', '{ViewMessage,CreateMessage,UpdateMessage,DeleteMessage,CreateMessageRecipient,ViewMessageRecipient,UpdateMessageRecipient,DeleteMessageRecipient1,2,3,4,5,6,7,8,CreateAttachmentFile,ViewAttachmentFile,UpdateAttachmentFile,DeleteAttachmentFile}', 1);
 
 -- Inserting tenants
 insert into tenants
