@@ -11,8 +11,13 @@ import {
   AuthorizationBindings,
   AuthorizationComponent,
 } from 'loopback4-authorization';
+import {HelmetSecurityBindings} from 'loopback4-helmet';
+import {RateLimitSecurityBindings} from 'loopback4-ratelimiter';
 import {
-  ServiceSequence,
+  CoreComponent,
+  SecureSequence,
+  rateLimitKeyGen,
+  AuthCacheSourceName,
   SFCoreBindings,
   BearerVerifierBindings,
   BearerVerifierComponent,
@@ -20,23 +25,15 @@ import {
   BearerVerifierType,
   SECURITY_SCHEME_SPEC,
 } from '@sourceloop/core';
-import {NotificationServiceComponent} from '@sourceloop/notification-service';
 import {RepositoryMixin} from '@loopback/repository';
 import {RestApplication} from '@loopback/rest';
 import {ServiceMixin} from '@loopback/service-proxy';
 import path from 'path';
 import * as openapi from './openapi.json';
-import {NotificationBindings} from 'loopback4-notifications';
-import {SNSBindings} from 'loopback4-notifications/sns';
-import {SESBindings} from 'loopback4-notifications/ses';
-import {
-  SocketIOProvider,
-  SocketBindings,
-} from 'loopback4-notifications/socketio';
 
 export {ApplicationConfig};
 
-export class NotificationServiceApplication extends BootMixin(
+export class ChatApplication extends BootMixin(
   ServiceMixin(RepositoryMixin(RestApplication)),
 ) {
   constructor(options: ApplicationConfig = {}) {
@@ -76,17 +73,40 @@ export class NotificationServiceApplication extends BootMixin(
       swaggerPassword: process.env.SWAGGER_PASSWORD,
     });
 
+    this.component(CoreComponent);
+
     // Set up the custom sequence
-    this.sequence(ServiceSequence);
+    this.sequence(SecureSequence);
+
+    this.bind(HelmetSecurityBindings.CONFIG).to({
+      referrerPolicy: {
+        policy: 'same-origin',
+      },
+      contentSecurityPolicy: {
+        directives: {
+          frameSrc: ["'self'"],
+          scriptSrc: ["'self'", `'${process.env.CSP_SCRIPT_SRC_HASH ?? ''}'`],
+        },
+      },
+      hsts: {
+        maxAge: 31536000,
+        includeSubDomains: true,
+        preload: true,
+      },
+    });
+
+    this.bind(RateLimitSecurityBindings.CONFIG).to({
+      name: AuthCacheSourceName,
+      max: parseInt(process.env.RATE_LIMIT_REQUEST_CAP ?? '100'),
+      keyGenerator: rateLimitKeyGen,
+    });
 
     // Add authentication component
     this.component(AuthenticationComponent);
 
-    this.component(NotificationServiceComponent);
-
     // Add bearer verifier component
     this.bind(BearerVerifierBindings.Config).to({
-      type: BearerVerifierType.service,
+      type: BearerVerifierType.facade,
     } as BearerVerifierConfig);
     this.component(BearerVerifierComponent);
     // Add authorization component
@@ -94,17 +114,6 @@ export class NotificationServiceApplication extends BootMixin(
       allowAlwaysPaths: ['/explorer', '/openapi.json'],
     });
     this.component(AuthorizationComponent);
-
-    // Setup SocketIO
-    this.bind(SNSBindings.Config).to({});
-    this.bind(SESBindings.Config).to({});
-
-    this.bind(NotificationBindings.PushProvider).toProvider(SocketIOProvider);
-    this.bind(SocketBindings.Config).to({
-      url: 'ws://localhost:3003',
-      defaultPath: 'general-message',
-      options: {},
-    });
 
     // Set up default home page
     this.static('/', path.join(__dirname, '../public'));
@@ -130,7 +139,7 @@ export class NotificationServiceApplication extends BootMixin(
     this.api({
       openapi: '3.0.0',
       info: {
-        title: 'notification-service',
+        title: 'chat',
         version: '1.0.0',
       },
       paths: {},

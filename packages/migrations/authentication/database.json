@@ -3,19 +3,19 @@
   "master": {
     "driver": "pg",
     "host": {
-      "ENV": "MIGRATION_DB_HOST"
+      "ENV": "AUTHENTICATION_DB_HOST"
     },
     "port": {
-      "ENV": "MIGRATION_DB_PORT"
+      "ENV": "AUTHENTICATION_DB_PORT"
     },
     "user": {
-      "ENV": "MIGRATION_DB_USER"
+      "ENV": "AUTHENTICATION_DB_USER"
     },
     "password": {
-      "ENV": "MIGRATION_DB_PASSWORD"
+      "ENV": "AUTHENTICATION_DB_PASSWORD"
     },
     "database": {
-      "ENV": "MIGRATION_DB_DATABASE"
+      "ENV": "AUTHENTICATION_DB_DATABASE"
     }
   },
   "sql-file": true

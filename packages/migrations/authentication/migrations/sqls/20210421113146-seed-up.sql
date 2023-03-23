@@ -5,7 +5,7 @@ TO main,public;
 insert into auth_clients
   (client_id, client_secret, secret, redirect_url)
 values
-  ('test_client_id', 'test_client_secret', 'secret', '/');
+  ('test_client_id', 'test_client_secret', 'secret', 'http://localhost:5173/get-token');
 
 -- Inserting roles
 insert into roles

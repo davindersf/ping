@@ -7,9 +7,15 @@
     "db:migrate": "run-s db:migrate:*",
     "db:migrate-down": "run-s db:migrate-down:*",
     "db:migrate-reset": "run-s db:migrate-reset:*",
-    "db:migrate:all-migrations": "./node_modules/.bin/db-migrate up --config 'all-migrations/database.json' -m 'all-migrations/migrations'",
-    "db:migrate-down:all-migrations": "./node_modules/.bin/db-migrate down --config 'all-migrations/database.json' -m 'all-migrations/migrations'",
-    "db:migrate-reset:all-migrations": "./node_modules/.bin/db-migrate reset --config 'all-migrations/database.json' -m 'all-migrations/migrations'"
+    "db:migrate:authentication": "./node_modules/.bin/db-migrate up --config 'authentication/database.json' -m 'authentication/migrations'",
+    "db:migrate-down:authentication": "./node_modules/.bin/db-migrate down --config 'authentication/database.json' -m 'authentication/migrations'",
+    "db:migrate-reset:authentication": "./node_modules/.bin/db-migrate reset --config 'authentication/database.json' -m 'authentication/migrations'",
+    "db:migrate:chat": "./node_modules/.bin/db-migrate up --config 'chat/database.json' -m 'chat/migrations'",
+    "db:migrate-down:chat": "./node_modules/.bin/db-migrate down --config 'chat/database.json' -m 'chat/migrations'",
+    "db:migrate-reset:chat": "./node_modules/.bin/db-migrate reset --config 'chat/database.json' -m 'chat/migrations'",
+    "db:migrate:notification": "./node_modules/.bin/db-migrate up --config 'notification/database.json' -m 'notification/migrations'",
+    "db:migrate-down:notification": "./node_modules/.bin/db-migrate down --config 'notification/database.json' -m 'notification/migrations'",
+    "db:migrate-reset:notification": "./node_modules/.bin/db-migrate reset --config 'notification/database.json' -m 'notification/migrations'"
   },
   "author": "",
   "license": "ISC",

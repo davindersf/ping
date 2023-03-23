@@ -25,6 +25,8 @@ module.exports = {
   ],
 
   scopes: [
+{name: 'chat-facade'}, 
+{name: 'socketio-service-service'}, 
 {name: 'notification-service-service'}, 
 {name: 'chat-service-service'}, 
 {name: 'authentication-service-service'}, 

@@ -1,7 +1,7 @@
 {
-  "name": "-notification-service",
+  "name": "-chat",
   "version": "0.0.1",
-  "description": "notification-service",
+  "description": "chat",
   "keywords": [
     "loopback-microservice",
     "loopback"
@@ -26,7 +26,7 @@
     "posttest": "npm run lint",
     "test:dev": "lb-mocha --allow-console-logs dist/__tests__/**/*.js && npm run posttest",
     "docker:build": "DOCKER_BUILDKIT=1 sudo docker build --build-arg NR_ENABLED=$NR_ENABLED_VALUE -t $IMAGE_REPO_NAME/-$npm_package_name:$npm_package_version .",
-    "docker:run": "docker run -p 3000:3000 -d notification-service",
+    "docker:run": "docker run -p 3000:3000 -d chat",
     "symlink-resolver": "symlink-resolver",
     "resolve-links": "npm run symlink-resolver build ./node_modules/@local",
     "premigrate": "npm run build",
@@ -73,13 +73,14 @@
     "@opentelemetry/plugin-pg-pool": "^0.15.0",
     "@opentelemetry/tracing": "^0.24.0",
     "@sourceloop/core": "^7.4.0",
-    "@sourceloop/notification-service": "^6.2.15",
     "dotenv": "^16.0.3",
     "dotenv-extended": "^2.9.0",
-    "loopback-connector-postgresql": "^6.0.2",
+    "loopback-connector-kv-redis": "^4.0.0",
+    "loopback-connector-rest": "^4.0.3",
     "loopback4-authentication": "^7.5.1",
     "loopback4-authorization": "^5.1.2",
-    "socket.io-client": "^4.6.1",
+    "loopback4-helmet": "^4.2.2",
+    "loopback4-ratelimiter": "^4.3.0",
     "swagger-stats": "^0.99.5",
     "symlink-resolver": "0.2.1",
     "tslib": "^2.4.1"
